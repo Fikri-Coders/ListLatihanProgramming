@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>HTML Form</title>
+</head>
+
+<body>
+
+	<form action="../latihan2(Paragraf)/(2)paragraf.html" method="post">
+		<table border="1" cellspacing="0" cellpadding="3">
+			<tr>
+				<th>TEXT FILL</th>
+				<td><label for="X">EMAIL</label></td>
+				<td><input type="email" name="EMAIL" id="X" placeholder="Username"></td>
+				<td><label for="X2">KONFIRM</label></td>
+				<td><input type="email" name="EMAIL" id="X2"></td>
+			</tr>
+			<tr>
+				<th>PASSWORD</th>
+				<td><label for="Y">PASSWORD</label></td>
+				<td><input type="password" name="PASSWORD" id="Y"></td>
+				<td><label for="Y2">KONFIRM</label></td>
+				<td><input type="password" name="PASSWORD" id="Y2"></td>
+			</tr>
+			<tr>
+				<th>RADIO BUTTON</th>
+				<td><label for="Z">PRIA</label><input type="Radio" name="YZ" id="Z"></td>
+				<td><label for="A">WANITA</label><input type="Radio" name="YZ" id="A"></td>
+				<td><label for="B">APA</label><input type="Radio" name="YY" id="B"></td>
+				<td><label for="F">DIMANA</label><input type="Radio" name="YY" id="F"></td>
+			</tr>
+			<tr>
+				<th>CHECKBOX</th>
+				<td><label for="SENAM">SENAM</label><input type="checkbox" name="HOBI" id="SENAM" value="1"></td>
+				<td><label for="OLAHRAGA">OLAHRAGA</label><input type="checkbox" name="HOBI" id="OLAHRAGA" value="2"></td>
+				<td><label for="NGOBAR">NGOBAR</label><input type="checkbox" name="HOBI" id="NGOBAR" value="3"></td>
+				<td><label for="BULUTANGKIS">BULUTANGKIS</label><input type="checkbox" name="HOBI" id="BULUTANGKIS" checked value="4"></td>
+			</tr>
+		</table>
+
+		<br>
+		<button type="submit">KIRIM!</button>
+	</form>
+
+	<form action="../latihan5(Hyperlink)/user/halaman1.html" method="get">
+		<br><br>
+		<label for="AA">KOMENTAR DISINI</label> <br>
+		<textarea id="AA" name="textarea" placeholder="saya ingin ..."></textarea>
+
+		<br><br>
+		<select>
+			<option>SENIN</option>
+			<option>SELASA</option>
+			<option>RABU</option>
+			<option>KAMIS</option>
+			<option>JUM'AT</option>
+			<option>SABTU</option>
+			<option>MINGGU</option>
+		</select>
+
+		<br><br>
+		<button type="submit">SEND IN HERE</button>
+	</form>
+
+</body>
+
+</html>
+
+
+<!-- ELEMEN FORM , <form></form>
+	1.INPUT (TEXT , PASSWORD , RADIO , CHECKBOX) 
+	2.TEXTAREA
+	3.SELECT (COMBOBOX/LISTBOX/DROPDOWN)
+	4.BUTTON (SUBMIT , RESET , BUTTON)
+	5.LABEL 
+
+	LABEL FOR DAN INPUT ID HARUS SAMA -->
+	<!-- atribut action di form untuk ngarahin users habis ngirim data ke halaman apa -->

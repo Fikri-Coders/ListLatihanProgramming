@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINK LATIHAN HTML</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #64748b;
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .exercise-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .exercise-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .exercise-number {
+            background: #1e3a8a;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .exercise-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #1e3a8a;
+        }
+
+        .exercise-links {
+            list-style: none;
+        }
+
+        .exercise-links li {
+            margin: 10px 0;
+        }
+
+        .exercise-links a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .exercise-links a i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            color: #2563eb;
+        }
+
+        .exercise-links a:hover {
+            color: #1e3a8a;
+            transform: translateX(5px);
+        }
+
+        .exercise-links a:hover i {
+            color: #1e3a8a;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .exercise-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .exercise-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exercise-number {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Link Latihan HTML</h1>
+            <p>Kumpulan latihan untuk belajar HTML</p>
+        </header>
+
+        <div class="exercise-grid">
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">1</span>
+                    <h2 class="exercise-title">Latihan 1</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan1/entities.html" target="_blank"><i class="fas fa-link"></i>entities.html</a></li>
+                </ul>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">2</span>
+                    <h2 class="exercise-title">Latihan 2</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan2(Paragraf)/(2)paragraf.html" target="_blank"><i class="fas fa-link"></i>(2)paragraf.html</a></li>
+                </ul>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">3</span>
+                    <h2 class="exercise-title">Latihan 3</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan3(Heading)/(3)heading.html" target="_blank"><i class="fas fa-link"></i>(3)heading.html</a></li>
+                </ul>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">4</span>
+                    <h2 class="exercise-title">Latihan 4</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan4(List)/(4)list.html" target="_blank"><i class="fas fa-link"></i>(4)list.html</a></li>
+                </ul>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">5</span>
+                    <h2 class="exercise-title">Latihan 5</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan5(Hyperlink)/user/halaman1.html" target="_blank"><i class="fas fa-link"></i>Halaman 1</a></li>
+                    <li><a href="../1.HTML/HTML1/latihan5(Hyperlink)/halaman2.html" target="_blank"><i class="fas fa-link"></i>Halaman 2</a></li>
+                    <li><a href="../1.HTML/HTML1/latihan5(Hyperlink)/halaman3.html" target="_blank"><i class="fas fa-link"></i>Halaman 3</a></li>
+                    <li><a href="../1.HTML/HTML1/latihan5(Hyperlink)/admin/halaman4.html" target="_blank"><i class="fas fa-link"></i>Halaman 4</a></li>
+                </ul>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">6</span>
+                    <h2 class="exercise-title">Latihan 6</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan6/halaman5.html" target="_blank"><i class="fas fa-link"></i>halaman5.html</a></li>
+                </ul>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">7</span>
+                    <h2 class="exercise-title">Latihan 7</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan7/image.html" target="_blank"><i class="fas fa-link"></i>image.html</a></li>
+                    <li><a href="../1.HTML/HTML1/latihan7/Screenshot (1).png" target="_blank"><i class="fas fa-link"></i>Screenshot (1).png</a></li>
+                </ul>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">8</span>
+                    <h2 class="exercise-title">Latihan 8</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan8/table.html" target="_blank"><i class="fas fa-link"></i>table.html</a></li>
+                    <li><a href="../1.HTML/HTML1/latihan8/table2.html" target="_blank"><i class="fas fa-link"></i>table2.html</a></li>
+                </ul>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <span class="exercise-number">9</span>
+                    <h2 class="exercise-title">Latihan 9</h2>
+                </div>
+                <ul class="exercise-links">
+                    <li><a href="../1.HTML/HTML1/latihan9/latihan1.html" target="_blank"><i class="fas fa-link"></i>latihan1.html</a></li>
+                    <li><a href="../1.HTML/HTML1/latihan9/latihan2.html" target="_blank"><i class="fas fa-link"></i>latihan2.html</a></li>
+                    <li><a href="../1.HTML/HTML1/latihan9/sekolahkoding.html" target="_blank"><i class="fas fa-link"></i>sekolahkoding.html</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

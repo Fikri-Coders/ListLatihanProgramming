@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Exercises - Portofolio Belajar</title>
+    <!-- Memuat Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Memuat font Poppins dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- Memuat Prism.js untuk syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <style>
+        /* Reset CSS untuk menghilangkan margin dan padding bawaan */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Gaya dasar untuk body */
+        body {
+            background: linear-gradient(135deg, #141414, #1c2526);
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            color: #ffffff;
+        }
+
+        /* Kontainer utama */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Gaya header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #e50914;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #b3b3b3;
+            margin-top: 5px;
+        }
+
+        /* Tombol kembali */
+        .back-button {
+            display: inline-block;
+            background: #e50914;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background: #b20710;
+        }
+
+        /* Bagian filter */
+        .filter-section {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .filter-section select {
+            background: #1f1f1f;
+            color: #ffffff;
+            border: 1px solid #e50914;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .filter-section select:hover {
+            background: #2d2d2d;
+        }
+
+        /* Bagian latihan */
+        .part-section {
+            margin-bottom: 30px;
+        }
+
+        .part-header {
+            background: #1f1f1f;
+            border-radius: 8px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: background 0.3s ease;
+        }
+
+        .part-header:hover {
+            background: #2d2d2d;
+        }
+
+        .part-header h2 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #e50914;
+        }
+
+        .part-header i {
+            font-size: 1.2rem;
+            color: #b3b3b3;
+            transition: transform 0.3s ease;
+        }
+
+        .part-header.active i {
+            transform: rotate(180deg);
+        }
+
+        .exercise-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        .exercise-list.active {
+            max-height: 600px;
+            padding: 20px;
+        }
+
+        .exercise-item {
+            background: #1f1f1f;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exercise-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .exercise-number {
+            background: #e50914;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .exercise-content {
+            flex-grow: 1;
+        }
+
+        .exercise-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .exercise-note {
+            font-size: 0.85rem;
+            color: #b3b3b3;
+            margin-top: 5px;
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .exercise-link, .exercise-download {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .exercise-item:hover .exercise-link, .exercise-item:hover .exercise-download {
+            color: #e50914;
+        }
+
+        .exercise-link i, .exercise-download i {
+            margin-left: 10px;
+            font-size: 1rem;
+        }
+
+        /* Bagian editor kode */
+        .code-section {
+            margin-bottom: 40px;
+        }
+
+        .code-editor-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .code-editor-container.active {
+            max-height: 700px;
+        }
+
+        .code-editor {
+            position: relative;
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            display: flex;
+            height: 300px; /* Default height */
+        }
+
+        .code-editor.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; /* Menggunakan 100% tinggi viewport */
+            z-index: 1000;
+            margin: 0;
+            border-radius: 0;
+            padding: 20px;
+            background: #2d2d2d;
+        }
+
+        .line-numbers {
+            width: 40px;
+            background: #1f1f1f;
+            color: #b3b3b3;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            text-align: right;
+            padding: 10px 5px;
+            border-right: 1px solid #3d3d3d;
+            user-select: none;
+            overflow-y: auto; /* Mengaktifkan scroll hanya jika perlu */
+            flex-shrink: 0;
+            height: 100%; /* Sesuaikan dengan tinggi container */
+        }
+
+        .code-editor textarea {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #ffffff;
+            resize: none;
+            outline: none;
+            padding: 10px;
+            height: 100%; /* Sesuaikan dengan tinggi container */
+            overflow-y: auto; /* Scroll hanya jika konten melebihi tinggi */
+        }
+
+        .code-editor.fullscreen .line-numbers,
+        .code-editor.fullscreen textarea {
+            height: calc(100vh - 40px); /* Mengurangi padding top dan bottom (20px x 2) */
+            max-height: calc(100vh - 40px);
+        }
+
+        .code-toolbar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .code-button {
+            background: #e50914;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s ease;
+        }
+
+        .code-button:hover {
+            background: #b20710;
+        }
+
+        .code-button.copied, .code-button.active {
+            background: #28a745;
+        }
+
+        /* Bagian preview */
+        .preview-section {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            color: #000000;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .preview-section.dark {
+            background: #1f1f1f;
+            color: #ffffff;
+        }
+
+        .preview-section h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #141414;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .preview-section.dark h3 {
+            color: #e50914;
+        }
+
+        .preview-toolbar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #b3b3b3;
+            background: rgba(20, 20, 20, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        footer p {
+            font-style: italic;
+        }
+
+        /* Media queries untuk responsivitas */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            header p { font-size: 1rem; }
+            .part-header h2 { font-size: 1.4rem; }
+            .exercise-item { padding: 15px; }
+            .exercise-title { font-size: 1.2rem; }
+            .exercise-number { width: 35px; height: 35px; font-size: 1rem; }
+            .code-editor textarea { height: 250px; font-size: 0.85rem; }
+            .line-numbers { font-size: 0.85rem; height: 250px; }
+            .preview-section { padding: 15px; }
+            .code-toolbar { flex-wrap: wrap; gap: 5px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 15px; }
+            .container { padding: 10px; }
+            .back-button { width: 100%; padding: 12px; }
+            .part-header { padding: 10px 15px; }
+            .exercise-list.active { padding: 15px; }
+            .exercise-item { flex-direction: column; align-items: flex-start; text-align: left; }
+            .exercise-number { margin-right: 0; margin-bottom: 10px; }
+            .exercise-title { font-size: 1.1rem; margin-bottom: 10px; }
+            .exercise-link, .exercise-download { font-size: 0.85rem; }
+            .exercise-actions { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; }
+            .code-editor textarea { height: 200px; font-size: 0.8rem; }
+            .line-numbers { font-size: 0.8rem; width: 35px; height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header utama -->
+        <header>
+            <h1>HTML Exercises</h1>
+            <p>Portofolio latihan saya untuk menguasai HTML</p>
+        </header>
+
+        <!-- Tombol kembali -->
+        <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Kembali ke Pencarian</a>
+
+        <!-- Filter untuk mengurutkan latihan -->
+        <div class="filter-section">
+            <select id="sortExercises" onchange="sortExercises()">
+                <option value="default">Urutkan: Default</option>
+                <option value="number-asc">Nomor (A-Z)</option>
+                <option value="number-desc">Nomor (Z-A)</option>
+                <option value="title-asc">Judul (A-Z)</option>
+                <option value="title-desc">Judul (Z-A)</option>
+            </select>
+        </div>
+
+        <!-- Bagian latihan HTML Part 1 -->
+        <div class="part-section" data-part="part1">
+            <div class="part-header" onclick="toggleSection(this)">
+                <h2>HTML Part 1 - Dasar</h2>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="exercise-list">
+                <div class="exercise-item">
+                    <span class="exercise-number">1</span>
+                    <div class="exercise-content">
+                        <span class="exercise-title">Latihan 1 - Entities</span>
+                        <p class="exercise-note">Belajar simbol khusus seperti © dan <</p>
+                    </div>
+                    <div class="exercise-actions">
+                        <a href="../HTML/HTML1/latihan2(Paragraf)/(2)paragraf.html" class="exercise-link" target="_blank">Lihat <i class="fas fa-arrow-right"></i></a>
+                        <a href="../HTML/HTML1/latihan2(Paragraf)/(2)paragraf.html" class="exercise-download" download="(2)paragraf.html">Download <i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+                <!-- Latihan lainnya -->
+                <div class="exercise-item">
+                    <span class="exercise-number">2</span>
+                    <div class="exercise-content">
+                        <span class="exercise-title">Latihan 2 - Paragraf</span>
+                        <p class="exercise-note">Membuat teks dengan tag <p></p>
+                    </div>
+                    <div class="exercise-actions">
+                        <a href="../1.HTML/HTML1/latihan2(Paragraf)/(2)paragraf.html" class="exercise-link" target="_blank">Lihat <i class="fas fa-arrow-right"></i></a>
+                        <a href="../1.HTML/HTML1/latihan2(Paragraf)/(2)paragraf.html" class="exercise-download" download="(2)paragraf.html">Download <i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bagian latihan HTML Part 2 -->
+        <div class="part-section" data-part="part2">
+            <div class="part-header" onclick="toggleSection(this)">
+                <h2>HTML Part 2 - Lanjutan</h2>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="exercise-list">
+                <div class="exercise-item">
+                    <span class="exercise-number">1</span>
+                    <div class="exercise-content">
+                        <span class="exercise-title">Latihan 1 - Hyperlink (Halaman 1)</span>
+                        <p class="exercise-note">Membuat tautan dengan <a></p>
+                    </div>
+                    <div class="exercise-actions">
+                        <a href="../1.HTML/HTML1/latihan5(Hyperlink)/user/halaman1.html" class="exercise-link" target="_blank">Lihat <i class="fas fa-arrow-right"></i></a>
+                        <a href="../1.HTML/HTML1/latihan5(Hyperlink)/user/halaman1.html" class="exercise-download" download="halaman1.html">Download <i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bagian contoh kode dan editor -->
+        <div class="code-section">
+            <div class="part-header" onclick="toggleSection(this)">
+                <h2>Contoh Kode HTML</h2>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="code-editor-container active">
+                <div class="code-editor" id="codeEditor">
+                    <!-- Nomor baris -->
+                    <pre class="line-numbers" id="lineNumbers"></pre>
+                    <!-- Textarea untuk menulis kode -->
+                    <textarea id="htmlCode" spellcheck="false"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan HTML</title>
+</head>
+<body>
+    <header>
+        <h1>Pengenalan HTML</h1>
+        <p>HyperText Markup Language (HTML) adalah bahasa markup standar untuk membuat halaman web.</p>
+    </header>
+    <main>
+        <h2>Contoh Tag HTML</h2>
+        <ul>
+            <li><b><h1></b> - Heading utama (judul besar).</li>
+            <li><b><p></b> - Paragraf untuk teks.</li>
+            <li><b><ul></b> - Daftar tak berurutan (bullet points).</li>
+            <li><b><a href="url"></b> - Tautan ke halaman lain.</li>
+            <li><b><img src="gambar.jpg" alt="deskripsi"></b> - Menampilkan gambar.</li>
+        </ul>
+    </main>
+    <footer>
+        <p>© 2025 - Belajar HTML</p>
+    </footer>
+</body>
+</html></textarea>
+                    <!-- Toolbar untuk editor -->
+                    <div class="code-toolbar">
+                        <button class="code-button" onclick="copyCode()">Copy</button>
+                        <button class="code-button" onclick="toggleWrap(this)">Wrap</button>
+                        <button class="code-button" onclick="downloadCode()">Download</button>
+                        <button class="code-button" onclick="resetCode()">Reset</button>
+                        <button class="code-button" onclick="toggleFullscreen()">Fullscreen</button>
+                    </div>
+                </div>
+                <!-- Bagian preview -->
+                <div class="preview-section" id="previewSection">
+                    <div class="preview-toolbar">
+                        <button class="code-button" onclick="togglePreviewTheme()">Dark Mode</button>
+                    </div>
+                    <h3>Preview</h3>
+                    <iframe id="previewFrame" style="width: 100%; height: 300px; border: none;"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>"Setiap latihan adalah langkah menuju penguasaan." - Unknown</p>
+        </footer>
+    </div>
+
+    <script>
+        // Kode default untuk editor
+        const defaultCode = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan HTML</title>
+</head>
+<body>
+    <header>
+        <h1>Pengenalan HTML</h1>
+        <p>HyperText Markup Language (HTML) adalah bahasa markup standar untuk membuat halaman web.</p>
+    </header>
+    <main>
+        <h2>Contoh Tag HTML</h2>
+        <ul>
+            <li><b><h1></b> - Heading utama (judul besar).</li>
+            <li><b><p></b> - Paragraf untuk teks.</li>
+            <li><b><ul></b> - Daftar tak berurutan (bullet points).</li>
+            <li><b><a href="url"></b> - Tautan ke halaman lain.</li>
+            <li><b><img src="gambar.jpg" alt="deskripsi"></b> - Menampilkan gambar.</li>
+        </ul>
+    </main>
+    <footer>
+        <p>© 2025 - Belajar HTML</p>
+    </footer>
+</body>
+</html>`;
+
+        // Fungsi untuk membuka/tutup bagian
+        function toggleSection(header) {
+            const container = header.nextElementSibling;
+            header.classList.toggle('active');
+            container.classList.toggle('active');
+        }
+
+        // Fungsi untuk menyalin kode ke clipboard
+        function copyCode() {
+            const codeText = document.getElementById('htmlCode').value;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const button = document.querySelector('.code-toolbar .code-button:nth-child(1)');
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+            });
+        }
+
+        // Fungsi untuk mengaktifkan/menonaktifkan wrap pada textarea
+        function toggleWrap(button) {
+            const textarea = document.getElementById('htmlCode');
+            textarea.wrap = textarea.wrap === 'soft' ? 'off' : 'soft';
+            button.classList.toggle('active');
+            button.textContent = button.classList.contains('active') ? 'No Wrap' : 'Wrap';
+            updateHighlighting();
+            updateLineNumbers();
+        }
+
+        // Fungsi untuk mengunduh kode sebagai file HTML
+        function downloadCode() {
+            const codeText = document.getElementById('htmlCode').value;
+            const blob = new Blob([codeText], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'html-example.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Fungsi untuk mereset kode ke default
+        function resetCode() {
+            const textarea = document.getElementById('htmlCode');
+            textarea.value = defaultCode;
+            updatePreview();
+            updateHighlighting();
+            updateLineNumbers();
+        }
+
+        // Fungsi untuk mengaktifkan/menonaktifkan mode layar penuh
+        function toggleFullscreen() {
+            const editor = document.getElementById('codeEditor');
+            const button = document.querySelector('.code-toolbar .code-button:nth-child(5)');
+            const textarea = document.getElementById('htmlCode');
+            const lineNumbers = document.getElementById('lineNumbers');
+
+            editor.classList.toggle('fullscreen');
+            if (editor.classList.contains('fullscreen')) {
+                // Simpan tinggi awal untuk dikembalikan nanti
+                editor.dataset.originalHeight = editor.style.height || '300px';
+                // Atur tinggi sesuai window
+                editor.style.height = '100vh';
+                textarea.style.height = 'calc(100vh - 40px)';
+                lineNumbers.style.height = 'calc(100vh - 40px)';
+                button.textContent = 'Exit Fullscreen';
+            } else {
+                // Kembalikan ke tinggi awal
+                editor.style.height = editor.dataset.originalHeight || '300px';
+                textarea.style.height = '100%'; // Kembali ke default
+                lineNumbers.style.height = '100%';
+                updateLineNumbers(); // Perbarui nomor baris berdasarkan konten
+                button.textContent = 'Fullscreen';
+            }
+            updatePreview(); // Perbarui preview setelah perubahan
+            updateLineNumbers(); // Pastikan nomor baris diperbarui
+        }
+
+        // Fungsi untuk mengubah tema preview (terang/gelap)
+        function togglePreviewTheme() {
+            const preview = document.getElementById('previewSection');
+            const button = document.querySelector('.preview-toolbar .code-button');
+            preview.classList.toggle('dark');
+            button.textContent = preview.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+        }
+
+        // Fungsi untuk memperbarui preview di iframe
+        function updatePreview() {
+            const htmlCode = document.getElementById('htmlCode').value;
+            const previewFrame = document.getElementById('previewFrame');
+            previewFrame.contentDocument.open();
+            previewFrame.contentDocument.write(htmlCode);
+            previewFrame.contentDocument.close();
+        }
+
+        // Fungsi untuk memperbarui syntax highlighting (menggunakan Prism.js)
+        function updateHighlighting() {
+            const textarea = document.getElementById('htmlCode');
+            const pre = document.getElementById('highlightedCode') || document.createElement('pre');
+            pre.id = 'highlightedCode';
+            pre.className = 'language-html';
+            pre.style.display = 'none';
+            pre.textContent = textarea.value;
+            Prism.highlightElement(pre);
+        }
+
+        // Fungsi untuk memperbarui nomor baris
+        function updateLineNumbers() {
+            const textarea = document.getElementById('htmlCode');
+            const lineNumbers = document.getElementById('lineNumbers');
+            const lines = textarea.value.split('\n').length;
+            let numbers = '';
+            for (let i = 1; i <= lines; i++) {
+                numbers += i + '\n';
+            }
+            lineNumbers.textContent = numbers;
+            // Sesuaikan tinggi secara otomatis berdasarkan konten
+            const lineHeight = parseInt(window.getComputedStyle(lineNumbers).lineHeight);
+            lineNumbers.style.height = `${lines * lineHeight}px`;
+            textarea.style.height = `${lines * lineHeight}px`;
+        }
+
+        // Fungsi untuk mengurutkan latihan berdasarkan pilihan pengguna
+        function sortExercises() {
+            const sortValue = document.getElementById('sortExercises').value;
+            const partSections = document.querySelectorAll('.part-section');
+            partSections.forEach(section => {
+                const exerciseList = section.querySelector('.exercise-list');
+                const items = Array.from(exerciseList.querySelectorAll('.exercise-item'));
+
+                items.sort((a, b) => {
+                    const numA = parseInt(a.querySelector('.exercise-number').textContent);
+                    const numB = parseInt(b.querySelector('.exercise-number').textContent);
+                    const titleA = a.querySelector('.exercise-title').textContent.toLowerCase();
+                    const titleB = b.querySelector('.exercise-title').textContent.toLowerCase();
+
+                    if (sortValue === 'number-asc') return numA - numB;
+                    if (sortValue === 'number-desc') return numB - numA;
+                    if (sortValue === 'title-asc') return titleA.localeCompare(titleB);
+                    if (sortValue === 'title-desc') return titleB.localeCompare(titleA);
+                    return 0; // Default: tidak ada pengurutan
+                });
+
+                items.forEach(item => exerciseList.appendChild(item));
+            });
+        }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePreview();
+            updateHighlighting();
+            updateLineNumbers();
+
+            // Event listener untuk perubahan input pada textarea
+            const textarea = document.getElementById('htmlCode');
+            textarea.addEventListener('input', () => {
+                updatePreview();
+                updateHighlighting();
+                updateLineNumbers();
+            });
+
+            // Sinkronisasi guliran antara textarea dan nomor baris
+            textarea.addEventListener('scroll', function() {
+                document.getElementById('lineNumbers').scrollTop = this.scrollTop;
+            });
+        });
+    </script>
+</body>
+</html>

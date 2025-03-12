@@ -1,0 +1,245 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+header {
+    width: 100%;
+    height: 65px;
+    background-color: rgba(34, 49, 52, .9);
+    position: fixed;
+    z-index: 9999;
+}
+
+header .header-left {
+    float: left;
+}
+
+header .header-right {
+    float: right;
+    background-color: rgba(255, 255, 255, .3);
+    margin-right: 45px;
+    transition: all .5s;
+}
+
+header .header-right:hover {
+    background-color: rgba(255, 255, 255, .5);
+}
+
+header img.logo {
+    height: 50px;
+    width: 124px;
+    margin-top: 7px;
+}
+
+header .header-right a {
+    line-height: 65px;
+    padding: 0 25px;
+    color: white;
+    display: block;
+}
+
+.top-wrapper {
+    color: white;
+    padding: 180px 0 100px 0;
+    background-image: url(../../../2.CSS/project_coding_css/IMAGE/clay-banks-TQYTWfN1b7M-unsplash.jpg);
+    background-size: cover;
+    text-align: center;
+}
+
+.top-wrapper .container {
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.top-wrapper .container h1 {
+    opacity: .7;
+    font-size: 45px;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+}
+
+.top-wrapper .container p {
+    opacity: .7;
+    margin-bottom: 3px;
+}
+
+.top-wrapper .container .btn-wrapper {
+    margin: 20px 0;
+}
+
+.top-wrapper .container .btn-wrapper p {
+    margin: 10px 0;
+}
+
+.btn {
+    display: inline-block;
+    color: white;
+    padding: 12px 24px;
+    opacity: 1;
+    border-radius: 6px;
+}
+
+.btn:hover {
+    opacity: .8;
+}
+
+.sign-up {
+    background-color: #209c77;
+}
+
+.facebook {
+    background-color: #1a4399;
+    margin-right: 12px;
+}
+
+.twitter {
+    background-color: #0878ce;
+}
+
+.lesson-wrapper {
+    width: 100%;
+    height: 500px;
+    padding-bottom: 80px;
+    background-color: #f7f7f7;
+    text-align: center;
+}
+
+.lesson-wrapper .heading {
+    padding: 60px 0 30px 0;
+    color: #5f5d60;
+    font-weight: normal;
+}
+
+.lessons {
+    display: flex;
+    margin-left: 5%;
+    flex-direction: row;
+}
+
+ul.lessons li.lesson {
+    width: 100%;
+    margin: initial;
+    padding: initial;
+    list-style: none;
+    position: relative;
+    margin-right: 100px;
+    flex-direction: row-reverse;
+}
+
+.lesson .lesson-icon {
+    position: relative;
+}
+
+.lesson p.text-content {
+    width: 80%;
+    display: inline-block;
+    font-size: 15px;
+    margin-top: 128px;
+    margin-left: 0%;
+    color: #222;
+}
+
+.lesson .lesson-icon p {
+    position: absolute;
+    color: white;
+    top: 35px;
+}
+
+.lessons .lesson .lesson-icon p,
+.lessons .lesson .lesson-icon .lesson-1,
+.lessons .lesson .lesson-icon .lesson-2,
+.lessons .lesson .lesson-icon .lesson-3,
+.lessons .lesson .lesson-icon .lesson-4 {
+    width: 120px;
+    height: 120px;
+    border-radius: 40%;
+    position: absolute;
+    left: 25%;
+}
+
+.lessons .lesson .lesson-icon .lesson-1 { background-color: aqua; }
+.lessons .lesson .lesson-icon .lesson-2 { background-color: red; }
+.lessons .lesson .lesson-icon .lesson-3 { background-color: orange; }
+.lessons .lesson .lesson-icon .lesson-4 { background-color: green; }
+
+.message-wrapper {
+    text-align: center;
+    padding-bottom: 80px;
+    border-bottom: 1px solid #eee;
+}
+
+.message {
+    background-color: #2c8a51;
+    padding: 15px 40px;
+    cursor: pointer;
+    box-shadow: 0 7px 1px #10522a;
+}
+
+.message:active {
+    box-shadow: 0 0 0 white;
+    margin-top: 7px;
+}
+
+.message-wrapper .heading h3 {
+    font-weight: normal;
+}
+
+footer {
+    padding-top: 30px;
+    text-align: center;
+    line-height: 10px;
+}
+
+footer p {
+    font-size: 12px;
+}
+
+@media (max-width: 412px) {
+    .lessons {
+        display: block;
+    }
+    ul.lessons li.lesson {
+        width: 25%;
+    }
+    .lesson span {
+        position: relative;
+        left: 50%;
+    }
+    footer {
+        background-color: aqua;
+    }
+}
+
+@media (max-width: 1000px) {
+    .lesson{
+        width: 50%;
+    }
+}
+
+
+/* 412 914 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
