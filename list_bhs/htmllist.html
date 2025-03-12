@@ -242,6 +242,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
             display: flex;
+            flex-direction: column;
             height: 300px; /* Default height */
         }
 
@@ -256,6 +257,12 @@
             border-radius: 0;
             padding: 20px;
             background: #2d2d2d;
+        }
+
+        .code-editor-content {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
         }
 
         .line-numbers {
@@ -289,16 +296,15 @@
 
         .code-editor.fullscreen .line-numbers,
         .code-editor.fullscreen textarea {
-            height: calc(100vh - 40px); /* Mengurangi padding top dan bottom (20px x 2) */
-            max-height: calc(100vh - 40px);
+            height: calc(100vh - 80px); /* Mengurangi padding dan toolbar height */
+            max-height: calc(100vh - 80px);
         }
 
         .code-toolbar {
-            position: absolute;
-            top: 10px;
-            right: 10px;
             display: flex;
             gap: 10px;
+            margin-top: 10px;
+            justify-content: flex-end;
         }
 
         .code-button {
@@ -319,6 +325,119 @@
 
         .code-button.copied, .code-button.active {
             background: #28a745;
+        }
+
+        /* Modifikasi gaya tombol pada layar mobile */
+        @media (max-width: 480px) {
+            .code-editor {
+                height: 250px; /* Sesuaikan tinggi untuk mobile */
+            }
+
+            .code-editor.fullscreen {
+                height: 100vh;
+            }
+
+            .code-toolbar {
+                margin-top: 0;
+                padding: 10px 0;
+                justify-content: flex-end;
+                gap: 5px;
+            }
+
+            .code-button {
+                padding: 8px;
+                font-size: 0.8rem;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                border: none;
+                background: #e50914;
+                color: #fff;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .code-button:hover {
+                background: #b20710;
+            }
+
+            .code-button i {
+                margin: 0;
+                font-size: 1rem;
+            }
+
+            .code-button::after {
+                content: none; /* Menghapus teks default */
+            }
+
+            .code-button.copied::after {
+                content: "✓"; /* Ikon centang untuk copied */
+                font-size: 1rem;
+                color: #fff;
+            }
+
+            .code-button.active::after {
+                content: "✔"; /* Ikon centang untuk wrap aktif */
+                font-size: 1rem;
+                color: #fff;
+            }
+
+            /* Menyembunyikan teks pada tombol tertentu di mobile */
+            .code-button {
+                font-size: 0; /* Menyembunyikan teks */
+            }
+
+            .code-button::before {
+                font-size: 1rem; /* Ukuran ikon */
+                display: inline-block;
+                font-family: "Font Awesome 6 Free";
+                font-weight: 900; /* Untuk ikon solid */
+                color: #fff;
+            }
+
+            .code-button[onclick="copyCode()"]::before {
+                content: "\f0c5"; /* Ikon copy */
+            }
+
+            .code-button[onclick="toggleFullscreen()"]::before {
+                content: "\f31e"; /* Ikon fullscreen */
+            }
+
+            .code-button[onclick="toggleWrap(this)"]::before {
+                content: "\f0c9"; /* Ikon wrap (ganti dengan ikon yang sesuai, misalnya align-left) */
+            }
+
+            .code-button[onclick="downloadCode()"]::before {
+                content: "\f019"; /* Ikon download */
+            }
+
+            .code-button[onclick="resetCode()"]::before {
+                content: "\f0e2"; /* Ikon reset (ganti dengan ikon yang sesuai, misalnya undo) */
+            }
+
+            /* Tooltip saat hover (opsional untuk aksesibilitas) */
+            .code-button:hover::after {
+                font-size: 0.8rem;
+                content: attr(data-tooltip);
+                position: absolute;
+                background: #333;
+                color: #fff;
+                padding: 2px 6px;
+                border-radius: 3px;
+                z-index: 10;
+                white-space: nowrap;
+                top: -25px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .code-button[data-tooltip] {
+                position: relative;
+            }
         }
 
         /* Bagian preview */
@@ -378,8 +497,8 @@
             .exercise-item { padding: 15px; }
             .exercise-title { font-size: 1.2rem; }
             .exercise-number { width: 35px; height: 35px; font-size: 1rem; }
-            .code-editor textarea { height: 250px; font-size: 0.85rem; }
-            .line-numbers { font-size: 0.85rem; height: 250px; }
+            .code-editor textarea { font-size: 0.85rem; }
+            .line-numbers { font-size: 0.85rem; }
             .preview-section { padding: 15px; }
             .code-toolbar { flex-wrap: wrap; gap: 5px; }
         }
@@ -395,8 +514,8 @@
             .exercise-title { font-size: 1.1rem; margin-bottom: 10px; }
             .exercise-link, .exercise-download { font-size: 0.85rem; }
             .exercise-actions { flex-direction: column; gap: 10px; width: 100%; align-items: flex-start; }
-            .code-editor textarea { height: 200px; font-size: 0.8rem; }
-            .line-numbers { font-size: 0.8rem; width: 35px; height: 200px; }
+            .code-editor textarea { font-size: 0.8rem; }
+            .line-numbers { font-size: 0.8rem; width: 35px; }
         }
     </style>
 </head>
@@ -437,7 +556,7 @@
                     </div>
                     <div class="exercise-actions">
                         <a href="../HTML/HTML1/latihan2(Paragraf)/(2)paragraf.html" class="exercise-link" target="_blank">Lihat <i class="fas fa-arrow-right"></i></a>
-                        <a href="../HTML/HTML1/latihan2(Paragraf)/(2)paragraf.html" class="exercise-download" download="(2)paragraf.html">Download <i class="fas fa-download"></i></a>
+                        <a href="../HTML/HTML1/latihan2(Paragraf)/(2)paragraf.html" class="exercise-download" download="codinghtml">Download <i class="fas fa-download"></i></a>
                     </div>
                 </div>
                 <!-- Latihan lainnya -->
@@ -484,10 +603,11 @@
             </div>
             <div class="code-editor-container active">
                 <div class="code-editor" id="codeEditor">
-                    <!-- Nomor baris -->
-                    <pre class="line-numbers" id="lineNumbers"></pre>
-                    <!-- Textarea untuk menulis kode -->
-                    <textarea id="htmlCode" spellcheck="false"><!DOCTYPE html>
+                    <div class="code-editor-content">
+                        <!-- Nomor baris -->
+                        <pre class="line-numbers" id="lineNumbers"></pre>
+                        <!-- Textarea untuk menulis kode -->
+                        <textarea id="htmlCode" spellcheck="false"><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -514,13 +634,14 @@
     </footer>
 </body>
 </html></textarea>
+                    </div>
                     <!-- Toolbar untuk editor -->
                     <div class="code-toolbar">
-                        <button class="code-button" onclick="copyCode()">Copy</button>
-                        <button class="code-button" onclick="toggleWrap(this)">Wrap</button>
-                        <button class="code-button" onclick="downloadCode()">Download</button>
-                        <button class="code-button" onclick="resetCode()">Reset</button>
-                        <button class="code-button" onclick="toggleFullscreen()">Fullscreen</button>
+                        <button class="code-button" onclick="copyCode()" data-tooltip="Copy"><i class="fas fa-copy"></i> Copy</button>
+                        <button class="code-button" onclick="toggleWrap(this)" data-tooltip="Wrap"><i class="fas fa-align-left"></i> Wrap</button>
+                        <button class="code-button" onclick="downloadCode()" data-tooltip="Download"><i class="fas fa-download"></i> Download</button>
+                        <button class="code-button" onclick="resetCode()" data-tooltip="Reset"><i class="fas fa-undo"></i> Reset</button>
+                        <button class="code-button" onclick="toggleFullscreen()" data-tooltip="Fullscreen"><i class="fas fa-expand"></i> Fullscreen</button>
                     </div>
                 </div>
                 <!-- Bagian preview -->
@@ -582,10 +703,8 @@
             const codeText = document.getElementById('htmlCode').value;
             navigator.clipboard.writeText(codeText).then(() => {
                 const button = document.querySelector('.code-toolbar .code-button:nth-child(1)');
-                button.textContent = 'Copied!';
                 button.classList.add('copied');
                 setTimeout(() => {
-                    button.textContent = 'Copy';
                     button.classList.remove('copied');
                 }, 2000);
             }).catch(err => {
@@ -598,7 +717,6 @@
             const textarea = document.getElementById('htmlCode');
             textarea.wrap = textarea.wrap === 'soft' ? 'off' : 'soft';
             button.classList.toggle('active');
-            button.textContent = button.classList.contains('active') ? 'No Wrap' : 'Wrap';
             updateHighlighting();
             updateLineNumbers();
         }
@@ -639,16 +757,14 @@
                 editor.dataset.originalHeight = editor.style.height || '300px';
                 // Atur tinggi sesuai window
                 editor.style.height = '100vh';
-                textarea.style.height = 'calc(100vh - 40px)';
-                lineNumbers.style.height = 'calc(100vh - 40px)';
-                button.textContent = 'Exit Fullscreen';
+                textarea.style.height = 'calc(100vh - 80px)';
+                lineNumbers.style.height = 'calc(100vh - 80px)';
             } else {
                 // Kembalikan ke tinggi awal
                 editor.style.height = editor.dataset.originalHeight || '300px';
                 textarea.style.height = '100%'; // Kembali ke default
                 lineNumbers.style.height = '100%';
                 updateLineNumbers(); // Perbarui nomor baris berdasarkan konten
-                button.textContent = 'Fullscreen';
             }
             updatePreview(); // Perbarui preview setelah perubahan
             updateLineNumbers(); // Pastikan nomor baris diperbarui
