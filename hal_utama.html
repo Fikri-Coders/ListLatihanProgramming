@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Proyek Informatika</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <style>
+    /* Font imports */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    /* CSS Reset & Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #3b82f6;
+      --dark: #0f172a;
+      --light: #f1f5f9;
+      --gray: #64748b;
+      --success: #10b981;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: #f8fafc;
+    }
+    
+    body.dark {
+      --primary: #60a5fa;
+      --primary-dark: #3b82f6;
+      --secondary: #2563eb;
+      --dark: #f1f5f9;
+      --light: #0f172a;
+      --gray: #94a3b8;
+      --success: #34d399;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* Header & Navigation */
+    header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+    
+    header, .skills-section, .project-card {
+      background-color: var(--light);
+    }
+    
+    header.scrolled {
+      padding: 0.5rem 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .logo span {
+      color: var(--dark);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      opacity: 0.1;
+      top: -300px;
+      right: -200px;
+      z-index: -1;
+    }
+    
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), var(--success));
+      opacity: 0.1;
+      bottom: -200px;
+      left: -100px;
+      z-index: -1;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 5px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      margin-left: 1rem;
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    /* Projects Section */
+    .section {
+      padding: 6rem 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .section-title p {
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+    
+    .project-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-img {
+      height: 200px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    
+    .project-content {
+      padding: 1.5rem;
+    }
+    
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .project-tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      background: #e0e7ff;
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .project-card h3 {
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+    
+    .project-card p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .project-link {
+      color: var(--primary);
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .project-link:hover {
+      text-decoration: underline;
+    }
+    
+    .projects-by-language {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    
+    .language-section h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    
+    /* Animasi */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Skills Section */
+    .skills-section {
+      background-color: white;
+    }
+    
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    
+    .skill-category {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .skill-category h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .skill-category h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 5px;
+    }
+    
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .skill-item {
+      background: #f1f5f9;
+      padding: 0.75rem 1.25rem;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    
+    .contact-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4rem;
+    }
+    
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-info p {
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: none;
+      font-family: inherit;
+    }
+    
+    textarea.form-control {
+      height: 150px;
+      resize: vertical;
+    }
+    
+    .btn-submit {
+      background: white;
+      color: var(--primary);
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+    }
+    
+    .btn-submit:hover {
+      background: var(--light);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-text {
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.3s;
+    }
+    
+    .social-link:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      opacity: 0.5;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: all 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .theme-toggle {
+        position: absolute;
+        right: 4rem;
+        top: 1.5rem;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header id="header">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">Portfolio<span>.</span></a>
+        <div class="nav-links" id="navLinks">
+          <a href="#home">Beranda</a>
+          <a href="#projects">Proyek</a>
+          <a href="#skills">Keahlian</a>
+          <a href="#contact">Kontak</a>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Selamat Datang di Portfolio Proyek Informatika Saya</h1>
+        <p>Saya adalah mahasiswa informatika yang berfokus pada pengembangan web dan aplikasi. Portfolio ini berisi semua proyek yang telah saya kerjakan selama studi saya.</p>
+        <div>
+          <a href="#projects" class="btn">Lihat Proyek</a>
+          <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-title">
+        <h2>Proyek Terbaru</h2>
+        <p>Berikut adalah beberapa proyek yang telah saya kembangkan selama perjalanan akademik saya di bidang informatika.</p>
+      </div>
+      
+      <div class="projects-grid">
+        <div class="project-card fade-in">
+          <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="project-tag">Web</span>
+              <span class="project-tag">React</span>
+              <span class="project-tag">Node.js</span>
+            </div>
+            <h3>Sistem Manajemen Perpustakaan</h3>
+            <p>Aplikasi web untuk manajemen perpustakaan yang memungkinkan peminjaman buku, pengembalian, dan pencarian katalog secara digital.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Demo <i>↗</i></a>
+              <a href="#" class="project-link">GitHub <i>↗</i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="project-tag">Mobile</span>
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">Firebase</span>
+            </div>
+            <h3>Aplikasi Pengingat Tugas</h3>
+            <p>Aplikasi mobile untuk mengelola tugas dan deadline kuliah, dilengkapi dengan notifikasi dan sinkronisasi antar perangkat.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Demo <i>↗</i></a>
+              <a href="#" class="project-link">GitHub <i>↗</i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="project-tag">AI</span>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">TensorFlow</span>
+            </div>
+            <h3>Sistem Pengenalan Wajah</h3>
+            <p>Implementasi sistem pengenalan wajah menggunakan deep learning untuk keamanan dan otentikasi pada aplikasi.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Demo <i>↗</i></a>
+              <a href="#" class="project-link">GitHub <i>↗</i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="project-tag">Game</span>
+              <span class="project-tag">Unity</span>
+              <span class="project-tag">C#</span>
+            </div>
+            <h3>Game Edukasi 2D</h3>
+            <p>Game edukasi 2D untuk pembelajaran konsep algoritma dan struktur data melalui puzzle dan tantangan.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Demo <i>↗</i></a>
+              <a href="#" class="project-link">GitHub <i>↗</i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="project-tag">Data</span>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">Pandas</span>
+            </div>
+            <h3>Analisis Sentimen Media Sosial</h3>
+            <p>Proyek analisis sentimen menggunakan NLP untuk menganalisis opini publik dari data Twitter tentang isu sosial.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Demo <i>↗</i></a>
+              <a href="#" class="project-link">GitHub <i>↗</i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="project-tag">IoT</span>
+              <span class="project-tag">Arduino</span>
+              <span class="project-tag">ESP32</span>
+            </div>
+            <h3>Sistem Monitoring Rumah Pintar</h3>
+            <p>Proyek IoT untuk monitoring dan kontrol perangkat rumah tangga menggunakan ESP32 dan aplikasi mobile.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Demo <i>↗</i></a>
+              <a href="#" class="project-link">GitHub <i>↗</i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="container">
+      <a href="#all-projects" class="btn">Lihat Selengkapnya</a>
+    </div>
+  </div>
+
+  <section class="section" id="all-projects">
+    <div class="container">
+      <div class="section-title">
+        <h2>Semua Proyek</h2>
+        <p>Proyek saya dikelompokkan berdasarkan bahasa pemrograman dan teknologi yang digunakan.</p>
+      </div>
+      
+      <div class="projects-by-language">
+        <div class="language-section">
+          <h3>JavaScript</h3>
+          <div class="projects-grid">
+            <div class="project-card fade-in">
+              <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+              <div class="project-content">
+                <div class="project-tags">
+                  <span class="project-tag">Web</span>
+                  <span class="project-tag">React</span>
+                </div>
+                <h3>Sistem Manajemen Perpustakaan</h3>
+                <p>Aplikasi web untuk manajemen perpustakaan.</p>
+                <div class="project-links">
+                  <a href="#" class="project-link">Demo <i>↗</i></a>
+                  <a href="#" class="project-link">GitHub <i>↗</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="language-section">
+          <h3>Python</h3>
+          <div class="projects-grid">
+            <div class="project-card fade-in">
+              <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+              <div class="project-content">
+                <div class="project-tags">
+                  <span class="project-tag">AI</span>
+                  <span class="project-tag">TensorFlow</span>
+                </div>
+                <h3>Sistem Pengenalan Wajah</h3>
+                <p>Sistem pengenalan wajah menggunakan deep learning.</p>
+                <div class="project-links">
+                  <a href="#" class="project-link">Demo <i>↗</i></a>
+                  <a href="#" class="project-link">GitHub <i>↗</i></a>
+                </div>
+              </div>
+            </div>
+            <div class="project-card fade-in">
+              <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+              <div class="project-content">
+                <div class="project-tags">
+                  <span class="project-tag">Data</span>
+                  <span class="project-tag">Pandas</span>
+                </div>
+                <h3>Analisis Sentimen Media Sosial</h3>
+                <p>Analisis sentimen opini publik dari Twitter.</p>
+                <div class="project-links">
+                  <a href="#" class="project-link">Demo <i>↗</i></a>
+                  <a href="#" class="project-link">GitHub <i>↗</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="language-section">
+          <h3>C#</h3>
+          <div class="projects-grid">
+            <div class="project-card fade-in">
+              <div class="project-img" style="background-image: url('/api/placeholder/600/400');"></div>
+              <div class="project-content">
+                <div class="project-tags">
+                  <span class="project-tag">Game</span>
+                  <span class="project-tag">Unity</span>
+                </div>
+                <h3>Game Edukasi 2D</h3>
+                <p>Game edukasi untuk belajar algoritma.</p>
+                <div class="project-links">
+                  <a href="#" class="project-link">Demo <i>↗</i></a>
+                  <a href="#" class="project-link">GitHub <i>↗</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="section skills-section" id="skills">
+    <div class="container">
+      <div class="section-title">
+        <h2>Keahlian Teknis</h2>
+        <p>Berikut adalah keterampilan dan teknologi yang telah saya kuasai selama studi di bidang informatika.</p>
+      </div>
+      
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3>Frontend</h3>
+          <div class="skill-list">
+            <div class="skill-item">HTML5</div>
+            <div class="skill-item">CSS3</div>
+            <div class="skill-item">JavaScript</div>
+            <div class="skill-item">React</div>
+            <div class="skill-item">Vue.js</div>
+            <div class="skill-item">Tailwind CSS</div>
+            <div class="skill-item">Bootstrap</div>
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>Backend</h3>
+          <div class="skill-list">
+            <div class="skill-item">Node.js</div>
+            <div class="skill-item">Express.js</div>
+            <div class="skill-item">PHP</div>
+            <div class="skill-item">Laravel</div>
+            <div class="skill-item">Python</div>
+            <div class="skill-item">Django</div>
+            <div class="skill-item">Java</div>
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>Database & Lainnya</h3>
+          <div class="skill-list">
+            <div class="skill-item">MySQL</div>
+            <div class="skill-item">MongoDB</div>
+            <div class="skill-item">PostgreSQL</div>
+            <div class="skill-item">Firebase</div>
+            <div class="skill-item">Git</div>
+            <div class="skill-item">Docker</div>
+            <div class="skill-item">AWS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact-section" id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Hubungi Saya</h2>
+        <p>Jika Anda tertarik untuk berkolaborasi atau memiliki pertanyaan, jangan ragu untuk menghubungi saya.</p>
+      </div>
+      
+      <div class="contact-content">
+        <div class="contact-info">
+          <h3>Informasi Kontak</h3>
+          <p>Silakan gunakan salah satu metode kontak berikut untuk menghubungi saya. Saya akan merespons secepat mungkin.</p>
+          
+          <div class="contact-links">
+            <div class="contact-link">
+              <div class="contact-icon">✉️</div>
+              <span>email@universitas.ac.id</span>
+            </div>
+            <div class="contact-link">
+              <div class="contact-icon">📱</div>
+              <span>+62 812 3456 7890</span>
+            </div>
+            <div class="contact-link">
+              <div class="contact-icon">📍</div>
+              <span>Kota, Provinsi, Indonesia</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Nama</label>
+              <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subjek</label>
+              <input type="text" id="subject" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Pesan</label>
+              <textarea id="message" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-submit">Kirim Pesan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">Portfolio.</div>
+      <p class="footer-text">Membuat solusi digital inovatif dengan pengetahuan informatika yang solid</p>
+      
+      <div class="social-links">
+        <a href="#" class="social-link">
+          <i>G</i>
+        </a>
+        <a href="#" class="social-link">
+          <i>L</i>
+        </a>
+        <a href="#" class="social-link">
+          <i>T</i>
+        </a>
+        <a href="#" class="social-link">
+          <i>I</i>
+        </a>
+      </div>
+      
+      <p class="copyright">© 2025 Portfolio Informatika. Semua hak dilindungi.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close menu when clicking a link on mobile
+    const navLinksArray = document.querySelectorAll('.nav-links a');
+    navLinksArray.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+        }
+      });
+    });
+    
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const headerHeight = header.offsetHeight;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      alert(`Terima kasih, ${name}! Pesan Anda telah diterima. Saya akan menghubungi Anda segera.`);
+      contactForm.reset();
+    });
+    
+    // Toggle tema gelap dan terang
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    });
+    
+    // Animasi fade-in saat scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    fadeElements.forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
