@@ -90,7 +90,7 @@
             padding: 8px 12px;
             border-radius: 5px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.7rem;
             cursor: pointer;
             transition: background 0.3s ease;
         }
@@ -238,12 +238,12 @@
             position: relative;
             background: #2d2d2d;
             border-radius: 8px;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             display: flex;
             flex-direction: column;
-            height: 300px; /* Default height */
+            height: 400px; /* Default height */
         }
 
         .code-editor.fullscreen {
@@ -266,7 +266,7 @@
         }
 
         .line-numbers {
-            width: 40px;
+            width: 45px;
             background: #1f1f1f;
             color: #b3b3b3;
             font-family: 'Courier New', Courier, monospace;
@@ -303,7 +303,7 @@
         .code-toolbar {
             display: flex;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 20px;
             justify-content: flex-end;
         }
 
@@ -314,7 +314,7 @@
             padding: 8px 12px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.6rem;
             font-family: 'Poppins', sans-serif;
             transition: background 0.3s ease;
         }
@@ -330,7 +330,7 @@
         /* Modifikasi gaya tombol pada layar mobile */
         @media (max-width: 480px) {
             .code-editor {
-                height: 250px; /* Sesuaikan tinggi untuk mobile */
+                height: 300px; /* Sesuaikan tinggi untuk mobile */
             }
 
             .code-editor.fullscreen {
@@ -338,7 +338,8 @@
             }
 
             .code-toolbar {
-                margin-top: 0;
+                margin-top: 8px;
+                margin-bottom: -13px;
                 padding: 10px 0;
                 justify-content: flex-end;
                 gap: 5px;
@@ -347,8 +348,8 @@
             .code-button {
                 padding: 8px;
                 font-size: 0.8rem;
-                width: 40px;
-                height: 40px;
+                width: 30px;
+                height: 30px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -367,7 +368,6 @@
 
             .code-button i {
                 margin: 0;
-                font-size: 1rem;
             }
 
             .code-button::after {
