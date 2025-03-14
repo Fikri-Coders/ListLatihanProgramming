@@ -117,7 +117,36 @@
             margin-bottom: 20px;
             display: flex;
             justify-content: flex-end;
+            gap: 10px;
         }
+
+        .filter-section input {
+    background: #1f1f1f;
+    color: #ffffff;
+    border: 1px solid #e50914;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    width: 200px; /* Lebar default */
+    transition: background 0.3s ease, width 0.3s ease;
+}
+
+body.light-theme .filter-section input {
+    background: #ffffff;
+    color: #333333;
+    border: 1px solid #e50914;
+}
+
+.filter-section input:focus {
+    background: #2d2d2d;
+    outline: none;
+    width: 250px; /* Lebar bertambah saat fokus */
+}
+
+body.light-theme .filter-section input:focus {
+    background: #e0e0e0;
+}
 
         .filter-section select {
             background: #1f1f1f;
@@ -144,6 +173,83 @@
         body.light-theme .filter-section select:hover {
             background: #e0e0e0;
         }
+
+        .sort-container {
+    position: relative;
+    display: inline-block;
+}
+
+.sort-toggle {
+    background: #1f1f1f;
+    color: #ffffff;
+    border: 1px solid #e50914;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: none;
+}
+
+body.light-theme .sort-toggle {
+    background: #ffffff;
+    color: #333333;
+    border: 1px solid #e50914;
+}
+
+.sort-toggle:hover {
+    background: #2d2d2d;
+}
+
+body.light-theme .sort-toggle:hover {
+    background: #e0e0e0;
+}
+
+.sort-menu {
+    list-style: none;
+    background: #1f1f1f;
+    border: 1px solid #e50914;
+    border-radius: 5px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 150px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    z-index: 10;
+}
+
+body.light-theme .sort-menu {
+    background: #ffffff;
+    border: 1px solid #e50914;
+}
+
+.sort-menu.active {
+    max-height: 200px;
+}
+
+.sort-menu li {
+    padding: 8px 12px;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+body.light-theme .sort-menu li {
+    color: #333333;
+}
+
+.sort-menu li:hover {
+    background: #2d2d2d;
+}
+
+body.light-theme .sort-menu li:hover {
+    background: #e0e0e0;
+}
 
         /* Part Section */
         .part-section {
@@ -207,7 +313,7 @@
         }
 
         .exercise-list.active {
-            max-height: 3000px;
+            max-height: 10000px;
             padding: 20px;
         }
 
@@ -608,6 +714,38 @@
                 font-size: 1.4rem;
             }
 
+            .filter-section {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .sort-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border-radius: 50%;
+    }
+    .sort-toggle i {
+        font-size: 1.2rem;
+    }
+    .sort-menu {
+        width: 180px;
+        border: none;
+    }
+    .filter-section select {
+        display: none;
+    }
+    
+    .filter-section input {
+        width: 100%;
+    }
+    .filter-section input:focus {
+        width: 100%;
+    }
+
             .exercise-title {
                 font-size: 1.2rem;
             }
@@ -661,7 +799,7 @@
             }
 
             .exercise-item {
-                padding: 15px;
+                padding: 10px;
             }
 
             .exercise-header {
@@ -847,6 +985,18 @@
                 position: relative;
             }
         }
+
+        @media (min-width: 769px) {
+    .sort-toggle {
+        display: none;
+    }
+    .sort-menu {
+        display: none;
+    }
+    .filter-section select {
+        display: inline-block;
+    }
+}
     </style>
 </head>
 
@@ -867,15 +1017,30 @@
         <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> Kembali ke Pencarian</a>
 
         <!-- Filter Section -->
-        <div class="filter-section">
-            <select id="sortExercises" onchange="sortExercises()">
-                <option value="default">Urutkan: Default</option>
-                <option value="number-asc">Nomor (A-Z)</option>
-                <option value="number-desc">Nomor (Z-A)</option>
-                <option value="title-asc">Judul (A-Z)</option>
-                <option value="title-desc">Judul (Z-A)</option>
-            </select>
-        </div>
+        <!-- Filter Section -->
+<div class="filter-section">
+    <input type="text" id="searchExercises" placeholder="Cari latihan..." onkeyup="searchExercises()">
+    <div class="sort-container">
+        <button class="sort-toggle" onclick="toggleSortMenu()">
+            <i class="fas fa-sort"></i>
+        </button>
+        <ul class="sort-menu" id="sortMenu">
+            <li data-value="default" onclick="sortExercises('default')">Urutkan: Default</li>
+            <li data-value="number-asc" onclick="sortExercises('number-asc')">Nomor (A-Z)</li>
+            <li data-value="number-desc" onclick="sortExercises('number-desc')">Nomor (Z-A)</li>
+            <li data-value="title-asc" onclick="sortExercises('title-asc')">Judul (A-Z)</li>
+            <li data-value="title-desc" onclick="sortExercises('title-desc')">Judul (Z-A)</li>
+        </ul>
+        <!-- Select asli untuk desktop -->
+        <select id="sortExercises" onchange="sortExercises(this.value)">
+            <option value="default">Urutkan: Default</option>
+            <option value="number-asc">Nomor (A-Z)</option>
+            <option value="number-desc">Nomor (Z-A)</option>
+            <option value="title-asc">Judul (A-Z)</option>
+            <option value="title-desc">Judul (Z-A)</option>
+        </select>
+    </div>
+</div>
 
         <!-- HTML Part 1 -->
         <div class="part-section" data-part="part1">
@@ -1180,7 +1345,7 @@
                 <div class="exercise-item">
                     <div class="exercise-header" onclick="toggleSubSection(this)">
                         <span class="exercise-number">10</span>
-                        <span class="exercise-title">Latihan 10 - Div-Span</span>
+                        <span class="exercise-title">Latihan 10 - DivSpan</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="exercise-sub-list">
@@ -1530,29 +1695,42 @@
         }
 
         // Sort Exercises
-        function sortExercises() {
-            const sortValue = document.getElementById('sortExercises').value;
-            const partSections = document.querySelectorAll('.part-section');
-            partSections.forEach(section => {
-                const exerciseList = section.querySelector('.exercise-list');
-                const items = Array.from(exerciseList.querySelectorAll('.exercise-item'));
+        function toggleSortMenu() {
+    const sortMenu = document.getElementById('sortMenu');
+    sortMenu.classList.toggle('active');
+}
 
-                items.sort((a, b) => {
-                    const numA = parseInt(a.querySelector('.exercise-number').textContent);
-                    const numB = parseInt(b.querySelector('.exercise-number').textContent);
-                    const titleA = a.querySelector('.exercise-title').textContent.toLowerCase();
-                    const titleB = b.querySelector('.exercise-title').textContent.toLowerCase();
+function sortExercises(sortValue) {
+    const partSections = document.querySelectorAll('.part-section');
+    partSections.forEach(section => {
+        const exerciseList = section.querySelector('.exercise-list');
+        const items = Array.from(exerciseList.querySelectorAll('.exercise-item'));
 
-                    if (sortValue === 'number-asc') return numA - numB;
-                    if (sortValue === 'number-desc') return numB - numA;
-                    if (sortValue === 'title-asc') return titleA.localeCompare(titleB);
-                    if (sortValue === 'title-desc') return titleB.localeCompare(titleA);
-                    return 0;
-                });
+        items.sort((a, b) => {
+            const numA = parseInt(a.querySelector('.exercise-number').textContent);
+            const numB = parseInt(b.querySelector('.exercise-number').textContent);
+            const titleA = a.querySelector('.exercise-title').textContent.toLowerCase();
+            const titleB = b.querySelector('.exercise-title').textContent.toLowerCase();
 
-                items.forEach(item => exerciseList.appendChild(item));
-            });
-        }
+            if (sortValue === 'number-asc') return numA - numB;
+            if (sortValue === 'number-desc') return numB - numA;
+            if (sortValue === 'title-asc') return titleA.localeCompare(titleB);
+            if (sortValue === 'title-desc') return titleB.localeCompare(titleA);
+            return 0;
+        });
+
+        items.forEach(item => exerciseList.appendChild(item));
+    });
+
+    const sortMenu = document.getElementById('sortMenu');
+    if (sortMenu.classList.contains('active')) {
+        sortMenu.classList.remove('active');
+    }
+}
+
+document.getElementById('sortExercises').addEventListener('change', function () {
+    sortExercises(this.value);
+});
 
         // Quote Animation
         const quotes = [
@@ -1613,6 +1791,39 @@
             quoteElement.classList.add('fade-in');
             changeQuote();
         });
+
+        function searchExercises() {
+    const searchValue = document.getElementById('searchExercises').value.toLowerCase();
+    const exercises = document.querySelectorAll('.exercise-item');
+
+    exercises.forEach(exercise => {
+        const title = exercise.querySelector('.exercise-title').textContent.toLowerCase();
+        const number = exercise.querySelector('.exercise-number').textContent;
+        const partSection = exercise.closest('.part-section');
+        const partHeader = partSection.querySelector('.part-header');
+
+        // Cek apakah judul atau nomor cocok dengan pencarian
+        if (title.includes(searchValue) || number.includes(searchValue)) {
+            exercise.style.display = 'block';
+            // Pastikan section terbuka jika ada hasil pencarian
+            partSection.querySelector('.exercise-list').classList.add('active');
+            partHeader.classList.add('active');
+            partHeader.querySelector('i').classList.remove('fa-chevron-down');
+            partHeader.querySelector('i').classList.add('fa-chevron-up');
+        } else {
+            exercise.style.display = 'none';
+        }
+
+        // Sembunyikan section jika tidak ada latihan yang terlihat
+        const visibleExercises = partSection.querySelectorAll('.exercise-item[style="display: block;"]');
+        if (visibleExercises.length === 0) {
+            partSection.querySelector('.exercise-list').classList.remove('active');
+            partHeader.classList.remove('active');
+            partHeader.querySelector('i').classList.add('fa-chevron-down');
+            partHeader.querySelector('i').classList.remove('fa-chevron-up');
+        }
+    });
+}
     </script>
 </body>
 
