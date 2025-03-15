@@ -1468,7 +1468,6 @@ body.light-theme .sort-menu li:hover {
                                 class="fas fa-download"></i> Download</button>
                         <button class="code-button" onclick="resetCode()" data-tooltip="Reset"><i
                                 class="fas fa-undo"></i> Reset</button>
-                                <button class="code-button" onclick="validateWithW3C()" data-tooltip="Validate W3C"><i class="fas fa-check"></i> Validate W3C</button>
                         <button class="code-button" onclick="toggleFullscreen()" data-tooltip="Fullscreen"><i
                                 class="fas fa-expand"></i> Fullscreen</button>
                     </div>
@@ -1862,46 +1861,6 @@ function resetCode() {
     updatePreview();
     updateHighlighting();
     updateLineNumbers();
-}
-function validateWithW3C() {
-    const codeText = document.getElementById('htmlCode').value;
-    const messageElement = document.getElementById('validationMessage');
-    messageElement.textContent = 'Memvalidasi dengan W3C...';
-    messageElement.style.color = '#fff';
-
-    fetch('https://validator.w3.org/nu/?out=json', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'text/html; charset=utf-8'
-        },
-        body: codeText
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.messages.length === 0) {
-            messageElement.textContent = 'HTML valid!';
-            messageElement.style.color = '#28a745';
-        } else {
-            const errors = data.messages.map(msg => `${msg.type}: ${msg.message}`).join(', ');
-            messageElement.textContent = 'HTML tidak valid: ' + errors;
-            messageElement.style.color = '#e50914';
-        }
-
-        setTimeout(() => {
-            messageElement.textContent = '';
-        }, 5000);
-
-        if (document.body.classList.contains('light-theme')) {
-            messageElement.style.color = messageElement.style.color === '#e50914' ? '#b20710' : '#1a7d34';
-        }
-    })
-    .catch(err => {
-        messageElement.textContent = 'Error saat memvalidasi: ' + err.message;
-        messageElement.style.color = '#e50914';
-        setTimeout(() => {
-            messageElement.textContent = '';
-        }, 3000);
-    });
 }
     </script>
 </body>
