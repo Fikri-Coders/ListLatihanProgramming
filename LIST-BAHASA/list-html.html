@@ -11,6 +11,7 @@
     <!-- Memuat font Poppins dari Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <!-- Memuat Prism.js untuk syntax highlighting -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" as="style">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
@@ -25,6 +26,7 @@
         /* Default (Dark Theme) */
         body {
             background: linear-gradient(135deg, #141414, #1c2526);
+    animation: gradientBG 15s ease infinite;
             min-height: 100vh;
             font-family: 'Poppins', sans-serif;
             padding: 20px;
@@ -997,6 +999,11 @@ body.light-theme .sort-menu li:hover {
         display: inline-block;
     }
 }
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
     </style>
 </head>
 
@@ -1461,6 +1468,7 @@ body.light-theme .sort-menu li:hover {
                                 class="fas fa-download"></i> Download</button>
                         <button class="code-button" onclick="resetCode()" data-tooltip="Reset"><i
                                 class="fas fa-undo"></i> Reset</button>
+                                <button class="code-button" onclick="validateWithW3C()" data-tooltip="Validate W3C"><i class="fas fa-check"></i> Validate W3C</button>
                         <button class="code-button" onclick="toggleFullscreen()" data-tooltip="Fullscreen"><i
                                 class="fas fa-expand"></i> Fullscreen</button>
                     </div>
@@ -1471,7 +1479,7 @@ body.light-theme .sort-menu li:hover {
                                 class="fas fa-expand"></i> Fullscreen</button>
                     </div>
                     <h3>Preview</h3>
-                    <iframe id="previewFrame" style="width: 100%; border: none;"></iframe>
+                    <iframe id="previewFrame" style="width: 100%; border: none;" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
@@ -1822,6 +1830,77 @@ document.getElementById('sortExercises').addEventListener('change', function () 
             partHeader.querySelector('i').classList.add('fa-chevron-down');
             partHeader.querySelector('i').classList.remove('fa-chevron-up');
         }
+    });
+}
+
+// Simpan kode ke localStorage saat input berubah
+const textarea = document.getElementById('htmlCode');
+textarea.addEventListener('input', () => {
+    localStorage.setItem('savedCode', textarea.value); // Simpan ke localStorage
+    updatePreview();
+    updateHighlighting();
+    updateLineNumbers();
+});
+
+// Muat kode dari localStorage saat halaman dimuat
+document.addEventListener('DOMContentLoaded', () => {
+    const savedCode = localStorage.getItem('savedCode');
+    if (savedCode) {
+        textarea.value = savedCode; // Muat kode yang tersimpan
+    } else {
+        textarea.value = defaultCode; // Jika tidak ada, gunakan default
+    }
+    updatePreview();
+    updateHighlighting();
+    updateLineNumbers();
+});
+
+// Modifikasi fungsi resetCode untuk menghapus kode dari localStorage
+function resetCode() {
+    textarea.value = defaultCode;
+    localStorage.setItem('savedCode', defaultCode); // Reset di localStorage
+    updatePreview();
+    updateHighlighting();
+    updateLineNumbers();
+}
+function validateWithW3C() {
+    const codeText = document.getElementById('htmlCode').value;
+    const messageElement = document.getElementById('validationMessage');
+    messageElement.textContent = 'Memvalidasi dengan W3C...';
+    messageElement.style.color = '#fff';
+
+    fetch('https://validator.w3.org/nu/?out=json', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/html; charset=utf-8'
+        },
+        body: codeText
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.messages.length === 0) {
+            messageElement.textContent = 'HTML valid!';
+            messageElement.style.color = '#28a745';
+        } else {
+            const errors = data.messages.map(msg => `${msg.type}: ${msg.message}`).join(', ');
+            messageElement.textContent = 'HTML tidak valid: ' + errors;
+            messageElement.style.color = '#e50914';
+        }
+
+        setTimeout(() => {
+            messageElement.textContent = '';
+        }, 5000);
+
+        if (document.body.classList.contains('light-theme')) {
+            messageElement.style.color = messageElement.style.color === '#e50914' ? '#b20710' : '#1a7d34';
+        }
+    })
+    .catch(err => {
+        messageElement.textContent = 'Error saat memvalidasi: ' + err.message;
+        messageElement.style.color = '#e50914';
+        setTimeout(() => {
+            messageElement.textContent = '';
+        }, 3000);
     });
 }
     </script>
